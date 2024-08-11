@@ -1,7 +1,7 @@
 import type { AppInfo } from '@/types/app'
-export const APP_ID = `${process.env.NEXT_PUBLIC_APP_ID}`
-export const API_KEY = `${process.env.NEXT_PUBLIC_APP_KEY}`
-export const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`
+export const APP_ID = '267b1e25-8b87-4f34-95e4-4599a3fd0141' 
+export const API_KEY = 'app-Tah9uSLMdtdmE1UQ967PJ95r'
+export const API_URL = 'http://dify.frwhealthcare.online/v1'
 export const APP_INFO: AppInfo = {
   title: 'FRW Medicine Identification Robot',
   description: 'An AI-driven solution for identifying medicines in our healthcare system.',
