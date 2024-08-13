@@ -1,30 +1,5 @@
-# Conversation Web App Template
+# FRW Medicine Recognition Robot
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Config App
-Create a file named `.env.local` in the current directory and copy the contents from `.env.example`. Setting the following content:
-```
-# APP ID
-NEXT_PUBLIC_APP_ID=
-# APP API key
-NEXT_PUBLIC_APP_KEY=
-# APP URL
-NEXT_PUBLIC_API_URL=
-```
-
-Config more in `config/index.ts` file:   
-```js
-export const APP_INFO: AppInfo = {
-  title: 'Chat APP',
-  description: '',
-  copyright: '',
-  privacy_policy: '',
-  default_language: 'zh-Hans'
-}
-
-export const isShowPrompt = true
-export const promptTemplate = ''
-```
 
 ## Getting Started
 First, install dependencies:
@@ -57,20 +32,15 @@ docker run -p 3000:3000 <DOCKER_HUB_REPO>/webapp-conversation:latest
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
 ## Deploy on Vercel
 
-> ⚠️ If you are using [Vercel Hobby](https://vercel.com/pricing), your message will be truncated due to the limitation of vercel.
+We deployed this app on vercel. Welcome to the website: [FRW Medicine Identification Robot ](https://medirecog.frwhealthcare.online/)
 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Acknowledgements
+
+This project makes use of code from the following open-source project:
+
+- [**webapp-conversation**](https://github.com/langgenius/webapp-conversation) by [Dify] - This project is licensed under the [MIT License](https://github.com/langgenius/webapp-conversation/blob/main/LICENSE).
+
