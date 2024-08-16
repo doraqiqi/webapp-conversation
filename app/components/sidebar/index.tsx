@@ -29,6 +29,14 @@ const Sidebar: FC<ISidebarProps> = ({
   onCurrentIdChange,
   list,
 }) => {
+
+  const showSidebar = false; // 控制显示或隐藏的状态
+
+  if (!showSidebar) {
+    return null;
+  }
+
+
   const { t } = useTranslation()
   return (
     <div
