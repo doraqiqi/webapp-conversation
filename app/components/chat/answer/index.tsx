@@ -70,85 +70,94 @@ const Answer: FC<IAnswerProps> = ({
   isResponding,
   allToolIcons,
 }) => {
-  const { id, content, feedback, agent_thoughts, workflowProcess } = item
-  const isAgentMode = !!agent_thoughts && agent_thoughts.length > 0
+  const { id, content, feedback, agent_thoughts, workflowProcess } = item;
+  const isAgentMode = !!agent_thoughts && agent_thoughts.length > 0;
+  const { t } = useTranslation();
 
-  const { t } = useTranslation()
-
-  /**
- * Render feedback results (distinguish between users and administrators)
- * User reviews cannot be cancelled in Console
- * @param rating feedback result
- * @param isUserFeedback Whether it is user's feedback
- * @returns comp
- */
   const renderFeedbackRating = (rating: MessageRating | undefined) => {
-    if (!rating)
-      return null
+    if (!rating) return null;
 
-    const isLike = rating === 'like'
-    const ratingIconClassname = isLike ? 'text-primary-600 bg-primary-100 hover:bg-primary-200' : 'text-red-600 bg-red-100 hover:bg-red-200'
-    // The tooltip is always displayed, but the content is different for different scenarios.
+    const isLike = rating === 'like';
+    const ratingIconClassname = isLike
+      ? 'text-primary-600 bg-primary-100 hover:bg-primary-200'
+      : 'text-red-600 bg-red-100 hover:bg-red-200';
+
     return (
       <Tooltip
         selector={`user-feedback-${randomString(16)}`}
         content={isLike ? '取消赞同' : '取消反对'}
       >
         <div
-          className={'relative box-border flex items-center justify-center h-7 w-7 p-0.5 rounded-lg bg-white cursor-pointer text-gray-500 hover:text-gray-800'}
-          style={{ boxShadow: '0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -2px rgba(0, 0, 0, 0.05)' }}
+          className={
+            'relative box-border flex items-center justify-center h-7 w-7 p-0.5 rounded-lg bg-white cursor-pointer text-gray-500 hover:text-gray-800'
+          }
+          style={{
+            boxShadow:
+              '0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -2px rgba(0, 0, 0, 0.05)',
+          }}
           onClick={async () => {
-            await onFeedback?.(id, { rating: null })
+            await onFeedback?.(id, { rating: null });
           }}
         >
-          <div className={`${ratingIconClassname} rounded-lg h-6 w-6 flex items-center justify-center`}>
+          <div
+            className={`${ratingIconClassname} rounded-lg h-6 w-6 flex items-center justify-center`}
+          >
             <RatingIcon isLike={isLike} />
           </div>
         </div>
       </Tooltip>
-    )
-  }
+    );
+  };
 
-  /**
-   * Different scenarios have different operation items.
-   * @returns comp
-   */
   const renderItemOperation = () => {
     const userOperation = () => {
-      return feedback?.rating
-        ? null
-        : <div className='flex gap-1'>
-          <Tooltip selector={`user-feedback-${randomString(16)}`} content={t('common.operation.like') as string}>
-            {OperationBtn({ innerContent: <IconWrapper><RatingIcon isLike={true} /></IconWrapper>, onClick: () => onFeedback?.(id, { rating: 'like' }) })}
+      return feedback?.rating ? null : (
+        <div className="flex gap-1">
+          <Tooltip
+            selector={`user-feedback-${randomString(16)}`}
+            content={t('common.operation.like') as string}
+          >
+            {OperationBtn({
+              innerContent: (
+                <IconWrapper>
+                  <RatingIcon isLike={true} />
+                </IconWrapper>
+              ),
+              onClick: () => onFeedback?.(id, { rating: 'like' }),
+            })}
           </Tooltip>
-          <Tooltip selector={`user-feedback-${randomString(16)}`} content={t('common.operation.dislike') as string}>
-            {OperationBtn({ innerContent: <IconWrapper><RatingIcon isLike={false} /></IconWrapper>, onClick: () => onFeedback?.(id, { rating: 'dislike' }) })}
+          <Tooltip
+            selector={`user-feedback-${randomString(16)}`}
+            content={t('common.operation.dislike') as string}
+          >
+            {OperationBtn({
+              innerContent: (
+                <IconWrapper>
+                  <RatingIcon isLike={false} />
+                </IconWrapper>
+              ),
+              onClick: () => onFeedback?.(id, { rating: 'dislike' }),
+            })}
           </Tooltip>
         </div>
-    }
+      );
+    };
 
-    return (
-      <div className={`${s.itemOperation} flex gap-2`}>
-        {userOperation()}
-      </div>
-    )
-  }
+    return <div className={`${s.itemOperation} flex gap-2`}>{userOperation()}</div>;
+  };
 
   const getImgs = (list?: VisionFile[]) => {
-    if (!list)
-      return []
-    return list.filter(file => file.type === 'image' && file.belongs_to === 'assistant')
-  }
+    if (!list) return [];
+    return list.filter(
+      (file) => file.type === 'image' && file.belongs_to === 'assistant'
+    );
+  };
 
   const agentModeAnswer = (
     <div>
       {agent_thoughts?.map((item, index) => (
         <div key={index}>
-          {item.thought && (
-            <Markdown content={item.thought} />
-          )}
-          {/* {item.tool} */}
-          {/* perhaps not use tool */}
+          {item.thought && <Markdown content={item.thought} />}
           {!!item.tool && (
             <Thought
               thought={item}
@@ -156,52 +165,63 @@ const Answer: FC<IAnswerProps> = ({
               isFinished={!!item.observation || !isResponding}
             />
           )}
-
           {getImgs(item.message_files).length > 0 && (
-            <ImageGallery srcs={getImgs(item.message_files).map(item => item.url)} />
+            <ImageGallery
+              srcs={getImgs(item.message_files).map((item) => item.url)}
+            />
           )}
         </div>
       ))}
     </div>
-  )
+  );
 
   return (
-    <div key={id}>
-      <div className='flex items-start'>
+    <div className="max-w-full overflow-x-hidden" style={{ maxWidth: '100%', minWidth: 'auto' }}>
+      <div className="flex items-start">
         <div className={`${s.answerIcon} w-10 h-10 shrink-0`}>
-          {isResponding
-            && <div className={s.typeingIcon}>
-              <LoadingAnim type='avatar' />
+          {isResponding && (
+            <div className={s.typeingIcon}>
+              <LoadingAnim type="avatar" />
             </div>
-          }
+          )}
         </div>
         <div className={`${s.answerWrap}`}>
           <div className={`${s.answer} relative text-sm text-gray-900`}>
-            <div className={`ml-2 py-3 px-4 bg-gray-100 rounded-tr-2xl rounded-b-2xl ${workflowProcess && 'min-w-[480px]'}`}>
+            <div
+              className={`ml-2 py-3 px-4 bg-gray-100 rounded-tr-2xl rounded-b-2xl ${workflowProcess && 'max-w-full'
+                }`}
+              style={{ maxWidth: '100%', minWidth: 'auto' }}
+            >
               {workflowProcess && (
                 <WorkflowProcess data={workflowProcess} hideInfo />
               )}
-              {(isResponding && (isAgentMode ? (!content && (agent_thoughts || []).filter(item => !!item.thought || !!item.tool).length === 0) : !content))
-                ? (
-                  <div className='flex items-center justify-center w-6 h-5'>
-                    <LoadingAnim type='text' />
-                  </div>
-                )
-                : (isAgentMode
-                  ? agentModeAnswer
-                  : (
-                    <Markdown content={content} />
-                  ))}
+              {isResponding && (isAgentMode
+                ? (!content &&
+                  (agent_thoughts || []).filter(
+                    (item) => !!item.thought || !!item.tool
+                  ).length === 0)
+                : !content) ? (
+                <div className="flex items-center justify-center w-6 h-5">
+                  <LoadingAnim type="text" />
+                </div>
+              ) : isAgentMode ? (
+                agentModeAnswer
+              ) : (
+                <Markdown content={content} />
+              )}
             </div>
-            <div className='absolute top-[-14px] right-[-14px] flex flex-row justify-end gap-1'>
-              {!feedbackDisabled && !item.feedbackDisabled && renderItemOperation()}
-              {/* User feedback must be displayed */}
+            <div className="absolute top-[-14px] right-[-14px] flex flex-row justify-end gap-1">
+              {!feedbackDisabled &&
+                !item.feedbackDisabled &&
+                renderItemOperation()}
               {!feedbackDisabled && renderFeedbackRating(feedback?.rating)}
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
-export default React.memo(Answer)
+
+  );
+};
+
+export default React.memo(Answer);
