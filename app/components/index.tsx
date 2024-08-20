@@ -207,7 +207,7 @@ const Main: FC = () => {
       isOpeningStatement: isShowPrompt,
     }
     if (calculatedIntroduction)
-      return [openStatement]
+      return [openstatement]
 
     return []
   }

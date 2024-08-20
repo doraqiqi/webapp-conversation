@@ -1,7 +1,7 @@
 import type { AppInfo } from '@/types/app'
-export const APP_ID = 'cd2c7b6b-486c-4415-af4f-b2fd82c47671'
-export const API_KEY = 'app-s13oF9cm3OiH2kwThja8LBew'
-export const API_URL = 'https://api.dify.ai/v1'
+export const APP_ID = '20de92c6-de48-4bcc-b9ce-2b3d4e114d51'
+export const API_KEY = 'app-7dSavAGu8mLPgkOLeHroPOt7'
+export const API_URL = 'http://150.158.92.200/v1'
 export const APP_INFO: AppInfo = {
   title: 'FRW Medicine Identification Robot',
   description: 'An AI-driven solution for identifying medicines in our healthcare system.',
