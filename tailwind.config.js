@@ -27,6 +27,9 @@ module.exports = {
           600: '#1C64F2',
           700: '#1A56DB',
         },
+        pink: {
+          100: '#FEDBDB', // 定义你的粉色
+        },
         blue: {
           500: '#E1EFFE',
         },

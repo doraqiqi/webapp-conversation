@@ -1,7 +1,7 @@
 import type { AppInfo } from '@/types/app'
-export const APP_ID = '20de92c6-de48-4bcc-b9ce-2b3d4e114d51'
-export const API_KEY = 'app-7dSavAGu8mLPgkOLeHroPOt7'
-export const API_URL = 'http://150.158.92.200/v1'
+export const APP_ID = '7de73309-0a84-4130-be27-fbc0b6065250' 
+export const API_KEY = 'app-pXmTVE0OStQTDqGAfHyXI6fz'
+export const API_URL = 'http://35.244.125.110/v1'
 export const APP_INFO: AppInfo = {
   title: 'FRW Medicine Identification Robot',
   description: 'An AI-driven solution for identifying medicines in our healthcare system.',
